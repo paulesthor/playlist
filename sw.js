@@ -1,4 +1,4 @@
-const CACHE_NAME = 'spotiflow-v1';
+const CACHE_NAME = 'spotiflow-v2';
 const STATIC_ASSETS = [
     '/playlist/',
     '/playlist/index.html',
@@ -34,6 +34,11 @@ self.addEventListener('fetch', (e) => {
         url.hostname === 'accounts.spotify.com' ||
         url.hostname === 'i.scdn.co'
     ) {
+        return;
+    }
+
+    // Ignore non-http(s) schemas (like chrome-extension://)
+    if (!url.protocol.startsWith('http')) {
         return;
     }
 
